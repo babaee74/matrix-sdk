@@ -2,8 +2,7 @@ from subprocess import Popen, PIPE
 import importlib.util as implib
 from ..utils.logging import logging
 from ..utils.loaders import auto_file_loader
-import time
-
+import os
 
 def read_requirements(path="requirements.txt"):
 
@@ -24,30 +23,36 @@ def read_requirements(path="requirements.txt"):
                 p = Popen(f"pip install {r}", shell=True, stdout=PIPE, stderr=PIPE)
                 out, err = p.communicate()
                 err = err.decode("utf-8")
-                out = out.decode("utf-8")
-                print(out)
-                print(err)
-                # if err!="":
-                #     raise RuntimeError(f"Package could not be installed, ERROR->\n {err}")
+                if err!="":
+                    raise RuntimeError( "Package could not be installed, ERROR->\n {err}")
 
-def test_main(input_dir, output_dir, device, framework, types_, install=False, requirements="requirements.txt"):
+def test_main(cwd, image, device, framework, types_):
+    input_dir = os.path.join(cwd, "samples")
     inputs = auto_file_loader(input_dir, types_)
 
     if not inputs:
-        raise RuntimeError(f"inputs is empty")
+        raise RuntimeError(f"No samples provided for automatic testing")
     
     if types_!=list(inputs.keys()):
         raise RuntimeError(f"Wrong inputs has been loaded! check auto_file_loader")
     
-    if install:
-        read_requirements(path=requirements)
+    # if install:
+    #     read_requirements(path=requirements)
     
-    p = Popen(f"python3 main.py --input_dir {input_dir} --output_dir {output_dir} --device {device} --framework {framework}", shell=True, stdout=PIPE, stderr=PIPE)
-
-    # for line in iter(p.stdout.readline, b''):
-    #     print(line.rstrip())
+    
+    output_dir = os.path.join(cwd, "results")
+    weights_dir = os.path.join(cwd, "weights")
+    if device in [-1, "cpu"]:
+        command = f"sudo docker run --mount type=bind,source={input_dir},target=/app/data/ --mount type=bind,source={output_dir},target=/app/results/ --mount type=bind,source={weights_dir},target=/app/weights/ {image} python3 main.py --input_dir /app/data --output_dir /app/results --device {device} --framework {framework}"
+    else:
+        command = f"sudo docker run --gpus all --mount type=bind,source={input_dir},target=/app/data/ --mount type=bind,source={output_dir},target=/app/results/ --mount type=bind,source={weights_dir},target=/app/weights/ {image} python3 main.py --input_dir /app/data --output_dir /app/results --device {device} --framework {framework}"
+    
+    print("running command->", command)
+    p = Popen(command, shell=True, stdout=PIPE, stderr=PIPE, universal_newlines=True)
+    for line in p.stdout:
+        print(line)
     out, err = p.communicate()
-    err = err.decode("utf-8")
+    # err = err.decode("utf-8")
     if err!="":
         raise RuntimeError( f"Test Error->\n {err}")
     

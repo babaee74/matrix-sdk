@@ -1,4 +1,4 @@
-
+import os
 
 
 class PipelineException(Exception):
@@ -16,4 +16,11 @@ class PipelineException(Exception):
 
         self.task = task
         self.model = model
+
+def write_error(cwd, err):
+    path = os.path.join(cwd, "error")
+    os.makedirs(path, exist_ok=True)
+    with open(os.path.join(path, "error.txt"), "w") as f:
+        f.write(err)
+    return True
 

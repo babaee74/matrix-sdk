@@ -1,0 +1,31 @@
+FROM nvidia/cuda:12.1.0-base-ubuntu20.04
+
+# Set environment variables
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Set the working directory
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && \
+    apt-get install -y \
+        python3-pip \
+        git \
+        python3-dev \
+        ffmpeg \
+        libsm6 \
+        libxext6  \
+        -y
+
+# Install any python packages you need
+COPY . .
+COPY requirements.txt requirements.txt
+
+# Upgrade pip
+RUN python3 -m pip install --upgrade pip
+
+# Upgrade wheel
+RUN python3 -m pip install --upgrade wheel
+
+# install requirements
+RUN python3 -m pip install -r requirements.txt
