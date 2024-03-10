@@ -16,5 +16,5 @@ def parse_cmd() -> dict:
 def main():
     cmds = parse_cmd()
 
-    if cmds["start_project"]:
+    if cmds["startproject"]:
         setup_project(os.getcwd())
