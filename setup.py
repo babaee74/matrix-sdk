@@ -25,7 +25,7 @@ setup(
     packages=find_packages(),
     entry_points={
         'console_scripts': [
-            'matrix-admin=matrix_admin:main',
+            'matrix-admin=matrix.matrix_admin:main',
         ]
     },
     cmdclass={'install_scripts': ManualAdminInstallation},
