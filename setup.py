@@ -31,5 +31,4 @@ setup(
         ]
     },
     cmdclass={'install_scripts': ManualAdminInstallation},
-    packages=find_packages(where="src"),
 )
