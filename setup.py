@@ -22,7 +22,7 @@ setup(
     description='A module to handle projects and connections to the Matrix repo server',
     author='MrEsi',
     author_email='mresi@here.there',
-    # packages=find_packages(where="matrix"),
+    packages=find_packages(where="matrix"),
     # package_dir={"": "matrix"},
     include_package_data=True,
     entry_points={
