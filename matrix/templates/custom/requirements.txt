@@ -1,7 +1,0 @@
-git+https://github.com/babaee74/matrix-sdk.git
-python-dotenv==1.0.1
-omegaconf==2.1.1
-torch
-torchvision
-torchaudio
-tensorflow[and-cuda]

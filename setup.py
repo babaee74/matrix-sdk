@@ -22,8 +22,11 @@ setup(
     description='A module to handle projects and connections to the Matrix repo server',
     author='MrEsi',
     author_email='mresi@here.there',
-    packages=find_packages(where="matrix"),
-    # package_dir={"": "matrix"},
+    packages=["matrix", "matrix.manager", "matrix.templates", "matrix.utils"],
+    package_dir={
+        "matrix":"matrix"
+                 },
+    package_data={"": ["*.zip", "Dockerfile*"]},
     include_package_data=True,
     entry_points={
         'console_scripts': [
