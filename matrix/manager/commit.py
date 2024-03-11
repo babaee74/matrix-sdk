@@ -44,7 +44,7 @@ def chunkify(file_name, size=1024*1024):
 
 
 def zipify(directory_path, zip_path):
-    EXCLUDE_DIR_NAME = [".matrix_temp", "__pycache__", "output", "results", "data", "weights"]
+    EXCLUDE_DIR_NAME = [".matrix_temp", "__pycache__", "output", "results", "data"]
     EXCLUDE_DIR_ABS = [os.path.join(directory_path, name) for name in EXCLUDE_DIR_NAME]
     os.makedirs(zip_path, exist_ok=True
                 )
