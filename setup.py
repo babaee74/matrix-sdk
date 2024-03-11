@@ -22,11 +22,14 @@ setup(
     description='A module to handle projects and connections to the Matrix repo server',
     author='MrEsi',
     author_email='mresi@here.there',
-    packages=find_packages(),
+    packages=find_packages(where="matrix"),
+    package_dir={"": "matrix"},
+    include_package_data=True,
     entry_points={
         'console_scripts': [
             'matrix-admin=matrix.matrix_admin:main',
         ]
     },
     cmdclass={'install_scripts': ManualAdminInstallation},
+    packages=find_packages(where="src"),
 )
