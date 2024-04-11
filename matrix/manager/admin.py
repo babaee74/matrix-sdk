@@ -6,6 +6,19 @@ from zipfile import ZipFile
 
 FRAMEWORKS = ["pt", "tf", "oth"]
 
+def update_dockerfile(cwd, framework):
+    matrix_dir = pkg_resources.resource_filename("matrix", '')
+    if framework not in FRAMEWORKS:
+        raise RuntimeError(f"Framework must be one of these: {FRAMEWORKS}")
+    
+    if framework=="pt":
+        shutil.copy2(src=os.path.join(matrix_dir, "templates", "Dockerfile-pt"), dst=os.path.join(cwd, "Dockerfile"))
+    elif framework=="tf":
+        shutil.copy2(src=os.path.join(matrix_dir, "templates", "Dockerfile-tf"), dst=os.path.join(cwd, "Dockerfile"))
+    else:
+        shutil.copy2(src=os.path.join(matrix_dir, "templates", "Dockerfile-oth"), dst=os.path.join(cwd, "Dockerfile"))
+
+
 def setup_project(cwd):
     matrix_dir = pkg_resources.resource_filename("matrix", '')
 

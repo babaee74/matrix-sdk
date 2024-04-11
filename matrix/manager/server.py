@@ -1,4 +1,4 @@
-SERVER_URI = "http://185.202.113.100:8000"
+SERVER_URI = "https://api.icanapp.name"
 REPO_DELETE_URI = "/repo/delete/"
 REPO_TASKS_LIST_URI = "/repo/tasks/"
 REPO_MODELS_LIST_URI = "/repo/models/"
