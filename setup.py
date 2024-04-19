@@ -22,7 +22,7 @@ setup(
     description='A module to handle projects and connections to the Matrix repo server',
     author='MrEsi',
     author_email='mresi@here.there',
-    packages=["matrix", "matrix.manager", "matrix.templates", "matrix.utils"],
+    packages=["matrix", "matrix.manager", "matrix.templates", "matrix.utils", "matrix.client"],
     package_dir={
         "matrix":"matrix"
                  },
