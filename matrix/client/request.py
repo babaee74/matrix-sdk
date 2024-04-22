@@ -7,7 +7,7 @@ import mimetypes
 
 
 
-def get_repo_list():
+def get_repo_list(pprint=False):
     """
     check status of your request
     task_id: id of your request
@@ -16,11 +16,14 @@ def get_repo_list():
     
     resp = requests.get(url)
     
-    print(resp.json())
-
     if resp.status_code != 200:
         raise RuntimeError(f"Failed to fetch teh status, ERR_CODE: {resp.status_code}, \nDetails: {resp.json()}")
     
+    if pprint:
+        import pprint
+        pp = pprint.PrettyPrinter(indent=4)
+        pp.pprint(resp.json())
+
     return resp.json()
     
 
