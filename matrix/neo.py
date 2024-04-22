@@ -3,7 +3,7 @@ from .utils.auxiliary import is_tf_available, is_torch_available, is_sklearn_ava
 from typing import Any, Dict, List, Optional, Tuple, Union
 from abc import ABC, abstractmethod
 from packaging import version
-
+from .utils.logging import logging
 
 
 GenericTensor = Union[List["GenericTensor"], "torch.Tensor", "tf.Tensor"]
@@ -41,7 +41,7 @@ class AbstractModel(ABC):
 
     def __init__(self, loaded_model, device, framework, **kwargs) -> None:
         if not (is_torch_available() or is_tf_available() or is_sklearn_available()):
-            raise RuntimeError("At least needs torch, tensorflow or sklearn installed")
+            raise logging.warning("At least needs torch, tensorflow or sklearn installed")
         
         if framework=="pt":
             if not is_torch_available():

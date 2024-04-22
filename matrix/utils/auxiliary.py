@@ -15,7 +15,7 @@ if _sklearn_available:
         _sklearn_available = False
 
 
-# TODO: This doesn't work for all packages, 
+# doesn't work for all packages, 
 def _is_package_available(pkg_name: str, return_version: bool = False) -> Union[Tuple[bool, str], bool]:
     # Check we're not importing a "pkg_name" directory somewhere but the actual library by trying to grab the version
     package_exists = importlib.util.find_spec(pkg_name) is not None
@@ -33,8 +33,6 @@ def _is_package_available(pkg_name: str, return_version: bool = False) -> Union[
 
 _torch_available, _torch_version = _is_package_available("torch", return_version=True)
 
-# Note: _is_package_available("tensorflow") fails for tensorflow-cpu. Please test any changes to the line below
-# with tensorflow-cpu to make sure it still works!
 _tf_available = importlib.util.find_spec("tensorflow") is not None
 if _tf_available:
     candidates = (

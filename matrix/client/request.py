@@ -6,6 +6,24 @@ from urllib.parse import urlparse, parse_qs
 import mimetypes
 
 
+
+def get_repo_list():
+    """
+    check status of your request
+    task_id: id of your request
+    """
+    url = f"{SERVER_URI}{REPO_LIST_URI}"
+    
+    resp = requests.get(url)
+    
+    print(resp.json())
+
+    if resp.status_code != 200:
+        raise RuntimeError(f"Failed to fetch teh status, ERR_CODE: {resp.status_code}, \nDetails: {resp.json()}")
+    
+    return resp.json()
+    
+
 class Client:
     """
     Class for client api connection
