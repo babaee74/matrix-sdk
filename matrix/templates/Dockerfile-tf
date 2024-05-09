@@ -17,8 +17,10 @@ RUN apt-get update && \
         libxext6  \
         -y
 
+
+# Ensure Installation of tensorflow and tensorflow-gpu
+RUN pip3 install tensorflow[and-cuda] --upgrade
 # Install any python packages you need
-COPY . .
 COPY requirements.txt requirements.txt
 
 # Upgrade pip
@@ -30,5 +32,4 @@ RUN python3 -m pip install --upgrade wheel
 # install requirements
 RUN python3 -m pip install -r requirements.txt
 
-# Ensure Installation of tensorflow and tensorflow-gpu
-RUN pip3 install tensorflow[and-cuda] --upgrade
+COPY . .
