@@ -18,17 +18,18 @@ RUN apt-get update && \
         -y
 
 
-# Ensure Installation of PyTorch, torchvision, torchaudio
-RUN pip3 install torch torchvision torchaudio 
-
-# Install any python packages you need
-COPY requirements.txt requirements.txt
 
 # Upgrade pip
 RUN python3 -m pip install --upgrade pip
 
 # Upgrade wheel
 RUN python3 -m pip install --upgrade wheel
+
+# Ensure Installation of PyTorch, torchvision, torchaudio
+RUN pip3 install torch torchvision torchaudio 
+
+# Install any python packages you need
+COPY requirements.txt requirements.txt
 
 # install requirements
 RUN python3 -m pip install -r requirements.txt
