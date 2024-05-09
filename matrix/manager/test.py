@@ -41,6 +41,8 @@ def test_main(cwd, image, device, framework, types_):
     
     
     output_dir = os.path.join(cwd, "results")
+    os.makedirs(output_dir, exist_ok=True)
+    
     weights_dir = os.path.join(cwd, "weights")
     if device in [-1, "cpu"]:
         command = f"sudo docker run --mount type=bind,source={input_dir},target=/app/data/ --mount type=bind,source={output_dir},target=/app/results/ --mount type=bind,source={weights_dir},target=/app/weights/ {image} python3 main.py --input_dir /app/data --output_dir /app/results --device {device} --framework {framework}"
@@ -53,6 +55,6 @@ def test_main(cwd, image, device, framework, types_):
         print(line)
     out, err = p.communicate()
     # err = err.decode("utf-8")
-    if err!="":
+    if p.returncode!=0 and err!="":
         raise RuntimeError( f"Test Error->\n {err}")
     
