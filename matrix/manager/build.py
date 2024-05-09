@@ -13,7 +13,7 @@ def build_local(docker_path, tag="test:latest"):
     for line in p.stdout:
         print(line)
     out, err = p.communicate()
-    err = err.decode("utf-8")
+    # err = err.decode("utf-8")
     if err!="":
         raise RuntimeError( "Test Error->\n {err}")
 
