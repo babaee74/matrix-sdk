@@ -33,7 +33,7 @@ def test_main(cwd, image, device, framework, types_):
     if not inputs:
         raise RuntimeError(f"No samples provided for automatic testing")
     
-    if types_!=list(inputs.keys()):
+    if set(types_) != set(list(inputs.keys())):
         raise RuntimeError(f"Wrong inputs has been loaded! check auto_file_loader")
     
     # if install:
