@@ -100,7 +100,7 @@ class Client:
                     })
         
         if resp.status_code != 200:
-            raise RuntimeError(f"Failed to fetch teh status, ERR_CODE: {resp.status_code}, \nDetails: {resp.json()}")
+            raise RuntimeError(f"Failed to fetch teh status, ERR_CODE: {resp.status_code}, \nDetails: {resp.content}")
         
         return resp.json()
     
